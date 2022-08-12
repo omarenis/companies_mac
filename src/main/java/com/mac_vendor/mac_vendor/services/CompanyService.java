@@ -19,4 +19,9 @@ public class CompanyService {
     {
         return this.macRepository.findByValueContains(macAddress).getCompany();
     }
+
+    public Company findCompanyByMacAddressAndReference(String macAddress, String reference)
+    {
+        return this.macRepository.findByValueContainsAndReferenceContains(macAddress, reference).getCompany();
+    }
 }

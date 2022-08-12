@@ -15,12 +15,12 @@ public class CompanyController {
     public CompanyController(CompanyService companyService) {
         this.companyService = companyService;
     }
-
     @GetMapping("/companies")
-    public Company getCompanyFromMacAddress(@RequestParam String macAddress, @RequestParam String reference) throws Exception {
+    public Company getCompanyByMacAddressAndReference(@RequestParam String macAddress, @RequestParam String reference)
+    {
         try
         {
-            return companyService.findCompanyByMacAddress(macAddress);
+            return companyService.findCompanyByMacAddressAndReference(macAddress, reference);
         } catch (Exception exception)
         {
             throw exception;

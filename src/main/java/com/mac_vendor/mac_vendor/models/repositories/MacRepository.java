@@ -8,5 +8,5 @@ import org.springframework.stereotype.Repository;
 @Repository
 public interface MacRepository extends JpaRepository<Mac, Long> {
     public Mac findByValueContains(String value);
-    public Mac findByValueAndReference(String value, String reference);
+    public Mac findByValueContainsAndReferenceContains(String value, String reference);
 }

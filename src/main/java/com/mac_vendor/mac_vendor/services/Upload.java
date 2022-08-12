@@ -42,7 +42,7 @@ public class Upload {
                 }
                 company.setName(companyName);
                 companyRepository.saveAndFlush(company);
-                Mac mac = macRepository.findByValueAndReference(addressMac, reference);
+                Mac mac = macRepository.findByValueContainsAndReferenceContains(addressMac, reference);
                 if (mac == null)
                 {
                     mac = new Mac();
@@ -54,7 +54,7 @@ public class Upload {
                 }
             } else {
                 companyName = row.getCell(1).getCellType().equals(CellType.STRING) ? row.getCell(1).getStringCellValue() : String.valueOf(row.getCell(1).getNumericCellValue());
-                addressMac = row.getCell(0).getStringCellValue().replace("(hex)", "");
+                addressMac = row.getCell(0).getStringCellValue().replace(" (hex)", "");
             }
 //            else if(row.getCell(1).getCellType().equals(CellType.BLANK))
 //            {
