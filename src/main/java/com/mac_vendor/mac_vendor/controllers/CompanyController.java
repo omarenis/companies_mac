@@ -7,6 +7,8 @@ import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.RestController;
 
+import java.util.List;
+
 @RestController
 public class CompanyController {
     private final CompanyService companyService;
@@ -16,14 +18,7 @@ public class CompanyController {
         this.companyService = companyService;
     }
     @GetMapping("/companies")
-    public Company getCompanyByMacAddressAndReference(@RequestParam String macAddress, @RequestParam String reference)
-    {
-        try
-        {
-            return companyService.findCompanyByMacAddressAndReference(macAddress, reference);
-        } catch (Exception exception)
-        {
-            throw exception;
-        }
+    public List<Company> getCompanyByMacAddressAndReference(@RequestParam String macAddress, @RequestParam String reference) throws Exception {
+        return companyService.findCompanyByMacAddress(macAddress);
     }
 }

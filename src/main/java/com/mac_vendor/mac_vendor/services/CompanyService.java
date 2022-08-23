@@ -1,9 +1,13 @@
 package com.mac_vendor.mac_vendor.services;
 
 import com.mac_vendor.mac_vendor.models.entities.Company;
+import com.mac_vendor.mac_vendor.models.entities.Mac;
 import com.mac_vendor.mac_vendor.models.repositories.MacRepository;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
+
+import java.util.ArrayList;
+import java.util.List;
 
 @Service
 public class CompanyService {
@@ -15,13 +19,35 @@ public class CompanyService {
         this.macRepository = macRepository;
     }
 
-    public Company findCompanyByMacAddress(String macAddress) throws Exception
+    private Company findCompanyInCompanies(List<Company> companies, Company company)
     {
-        return this.macRepository.findByValueContains(macAddress).getCompany();
+        if(companies != null)
+        {
+            for (Company company1 :
+                    companies) {
+                if (company1.getName().equals(company.getName()))
+                {
+                    return null;
+                }
+            }
+        }
+        return company;
     }
-
-    public Company findCompanyByMacAddressAndReference(String macAddress, String reference)
+    public List<Company> findCompanyByMacAddress(String macAddress) throws Exception
     {
-        return this.macRepository.findByValueContainsAndReferenceContains(macAddress, reference).getCompany();
+        List<Company> output = new ArrayList<>();
+        List<Mac> macList = macRepository.findAllByValueContains(macAddress);
+        if(macList != null)
+        {
+            for (Mac mac :
+                    macList) {
+                Company company = findCompanyInCompanies(output, mac.getCompany());
+                if(company != null)
+                {
+                    output.add(company);
+                }
+            }
+        }
+        return output;
     }
 }
