@@ -18,7 +18,7 @@ public class CompanyController {
         this.companyService = companyService;
     }
     @GetMapping("/companies")
-    public List<Company> getCompanyByMacAddressAndReference(@RequestParam String macAddress, @RequestParam String reference) throws Exception {
+    public List<Company> getCompanyByMacAddressAndReference(@RequestParam String macAddress) throws Exception {
         return companyService.findCompanyByMacAddress(macAddress);
     }
 }

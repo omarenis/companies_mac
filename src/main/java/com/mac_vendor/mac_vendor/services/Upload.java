@@ -32,8 +32,11 @@ public class Upload {
         for (Row row : workbook.getSheetAt(0)) {
                 companyName = row.getCell(1).getCellType().equals(CellType.STRING) ? row.getCell(1).getStringCellValue() : String.valueOf(row.getCell(1).getNumericCellValue());
                 addressMac = row.getCell(0).getStringCellValue().replace(" (hex)", "").replace("-", "");
+                System.out.println("company name = " + companyName);
+                System.out.println("mac address = " + addressMac);
                 company = companyRepository.findCompanyByName(companyName);
                 mac = macRepository.findByValueContains(addressMac);
+                System.out.println("mac id = " + mac);
                 if(company == null)
                 {
                     company = new Company(companyName);
